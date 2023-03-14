@@ -6,15 +6,26 @@ interface Props {
   todo: Todo;
   deleteItems: (id: number) => void;
   editItems: (id: number, value: string) => void;
+  ToggleTodo: (id: number) => void;
 }
 
-const TodoItem: React.FC<Props> = ({ todo, deleteItems, editItems }) => {
+const TodoItem: React.FC<Props> = ({
+  todo,
+  deleteItems,
+  editItems,
+  ToggleTodo,
+}) => {
   const [editStatus, setEditStatus] = useState<boolean>(false);
 
   return !editStatus ? (
     <div className="col-6 mb-2">
       <div className="d-flex justify-content-between align-items-center border rounded p-3">
-        <div>{todo.title}</div>
+        <div
+          onClick={() => ToggleTodo(todo.id)}
+          style={{ textDecoration: todo.is_done ? "line-through" : "none" }}
+        >
+          {todo.title}
+        </div>
         <div>
           <button
             type="button"
