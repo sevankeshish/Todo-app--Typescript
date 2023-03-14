@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import AddTodo from "./components/todos/addTodo";
 import Todo from "./models/todo";
+import TodoItem from "./components/todos/todoItem";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  // setTodos([
-  //   {
-  //     id: 1,
-  //     title: "ssss",
-  //     is_done: false,
-  //   },
-  // ]);
+  const addTodo = (todo: Todo): void => {
+    setTodos([...todos, todo]);
+  };
 
   return (
     <div className="App">
@@ -32,7 +29,10 @@ function App() {
             <p className="lead text-muted">
               To get started, add some items to your list:
             </p>
-            <AddTodo add={setTodos} />
+            <AddTodo
+              // add={setTodos}
+              add={addTodo}
+            />
           </div>
         </section>
         <div className="todosList">
@@ -54,54 +54,10 @@ function App() {
                   </a>
                 </div>
               </nav>
-              <div className="col-6 mb-2">
-                <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                  <div>hello roocket</div>
-                  <div>
-                    <button type="button" className="btn btn-info btn-sm">
-                      edit
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm ml-1"
-                    >
-                      delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 mb-2">
-                <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                  <div>hello roocket</div>
-                  <div>
-                    <button type="button" className="btn btn-info btn-sm">
-                      edit
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm ml-1"
-                    >
-                      delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 mb-2">
-                <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                  <div>hello roocket</div>
-                  <div>
-                    <button type="button" className="btn btn-info btn-sm">
-                      edit
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm ml-1"
-                    >
-                      delete
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              {todos.map((todo: Todo) => (
+                <TodoItem key={todo.id} todo={todo} />
+              ))}
             </div>
           </div>
         </div>
